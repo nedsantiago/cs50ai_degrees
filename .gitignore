@@ -1,5 +1,5 @@
 # MY GIT IGNORES
-venv/
+venv50/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

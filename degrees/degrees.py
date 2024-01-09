@@ -90,10 +90,47 @@ def shortest_path(source, target):
     that connect the source to the target.
 
     If no possible path, returns None.
+
+    Breadth-First will be implemented first for simplicity
     """
 
-    # TODO
-    raise NotImplementedError
+    # create the initial state (as initial node)
+    # find neighbors as the possible actions of node
+    neighbors = neighbors_for_person(person_id=source)
+    inode = Node(state=source, parent=None, action=neighbors)
+
+    # loop forever until an error pops up or goal state is found
+    not_goal = True
+    not_frontier_empty = True
+    while(not_goal and not_frontier_empty):
+        # expand the node by checking all people connected to current person
+        print(f"Expanding from {inode.state}")
+        actions = {}
+        print(f"Found these nodes: {actions}")
+        # looping through set
+        for item in neighbors_for_person(person_id=inode.state):
+            print(f"loop through actions: {item[1]}")
+        not_frontier_empty = False
+
+        # use a queue system in the frontier for a breadth-first search algorithm
+
+        # add the initial state to the explored set
+
+    # add new people to frontier in a queue system
+
+    # move to a person
+
+    # if current person is target person
+
+        # run through previous path by going to each parent until back to source
+    
+    # elif nothing in frontier
+        # return None as the answer (as per CS50 specifications)
+    
+    # else
+        # continue the algorithm
+    
+    pass
 
 
 def person_id_for_name(name):

@@ -1,3 +1,5 @@
-# CS50AI Submission Collections
+# CS50AI Submission Collection
 
-- [ ] degrees
+|Week #|Topic|Completed?|
+|:---:|---|:---:|
+|0|Degree|&#9744;|

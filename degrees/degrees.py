@@ -86,7 +86,7 @@ def main():
 def goal_test(node, target):
     """This function checks if the current node is the target node"""
 
-    return True # node.state == target
+    return node.state == target
 
 def shortest_path(source, target):
     """
@@ -101,25 +101,37 @@ def shortest_path(source, target):
     frontier_queue = QueueFrontier()
     # initialize an explored set
     explored_set = set()
-    # initital state, parent, action
+    # inititalize node
     state = source
-    parent = None
+    node = Node(state=state, parent=None, action=neighbors_for_person(source))
     # begin an infinite loop
     while True:
-        # create the current iteration's node (state, parent, action)
-        node = Node(state, parent=None, action=None)
-            # action adds is a dummy action set
         # add current state to explored set
+        explored_set.add(node.state)
         # if the current state is the goal
+        if goal_test(node=node, target=target):
             # begin collecting the path to goal
+            print(f"Found the goal, beginning path lister")
+            raise NotImplementedError
         # if the frontier is empty
+        if frontier_queue.empty():
             # then no connection, return None (as per CS50 specs)
+            print(f"Frontier was empty, returning None")
+            return None
         # loop through possible people connections
-            # if the connection is not the state and not in the explored set
+        # initialize actions to be empty list
+        actions = []
+        for person_id in neighbors_for_person(state):
+            # if the connection is not the state
+            if (person_id != state):
                 # add to actions
+                actions.append(person_id)
                 # add to frontier
+                frontier_queue.add(person_id)
             # else, connection is the state itself or in explored set
                 # do nothing
+        # update node (state, parent, action)
+        node = Node(state, parent=node.state, action=actions.copy())
 
 
 

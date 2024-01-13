@@ -97,42 +97,39 @@ def shortest_path(source, target):
 
     Breadth-First will be implemented first for simplicity
     """
+    # inititalize node
+    node = Node(state=source, parent=None, action=None)
     # initialize a queue frontier for a breadth-first search (BFS)
     frontier_queue = QueueFrontier()
+    frontier_queue.add(node)
     # initialize an explored set
     explored_set = set()
-    # inititalize node
-    state = source
-    node = Node(state=state, parent=None, action=neighbors_for_person(source))
     # begin an infinite loop
     while True:
-        # add current state to explored set
-        explored_set.add(node.state)
-        # if the current state is the goal
-        if goal_test(node=node, target=target):
-            # begin collecting the path to goal
-            print(f"Found the goal, beginning path lister")
-            raise NotImplementedError
         # if the frontier is empty
         if frontier_queue.empty():
             # then no connection, return None (as per CS50 specs)
             print(f"Frontier was empty, returning None")
             return None
-        # loop through possible people connections
-        # initialize actions to be empty list
-        actions = []
-        for person_id in neighbors_for_person(state):
-            # if the connection is not the state
-            if (person_id != state):
-                # add to actions
-                actions.append(person_id)
-                # add to frontier
-                frontier_queue.add(person_id)
-            # else, connection is the state itself or in explored set
-                # do nothing
-        # update node (state, parent, action)
-        node = Node(state, parent=node.state, action=actions.copy())
-
+        # remove node from frontier
+        node = frontier_queue.remove()
+        # if the current state is the goal
+        if goal_test(node=node, target=target):
+            # begin collecting the path to goal
+            print(f"Found the goal, beginning path lister")
+            raise NotImplementedError
+        else: # it is not the goal and need to look for possibilities
+            # Expand Frontier: loop through possible nodes
+            for person_id in neighbors_for_person(node.state):
+                # if the connection is not a refernce to self
+                if (person_id != node.state):
+                    # add connection (node) to frontier
+                    frontier_queue.add(Node(
+                        state=person_id[1], 
+                        parent=node.state, 
+                        action=person_id))
+            # add node to explroed set
+            explored_set.add(node)
 
 
 def person_id_for_name(name):

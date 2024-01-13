@@ -97,73 +97,30 @@ def shortest_path(source, target):
 
     Breadth-First will be implemented first for simplicity
     """
-
-    # create the initial state (as initial node)
-    # find neighbors as the possible actions of node
-    neighbors = neighbors_for_person(person_id=source)
-    inode = Node(state=source, parent=None, action=neighbors)
-    print(inode.action)
-
-    # loop forever until frontier is empty or goal state is found
-
-    # intitializing the Queue Frontier for a breadth-first implementation
-    frontier_set = QueueFrontier()
-
-    # initialize the explored set
+    # initialize a queue frontier for a breadth-first search (BFS)
+    frontier_queue = QueueFrontier()
+    # initialize an explored set
     explored_set = set()
-
-    # initialize the actions
-    inode.action = set()
+    # initital state, parent, action
+    state = source
+    parent = None
+    # begin an infinite loop
     while True:
-        # add the current state to the explored set
-        explored_set.add(inode.state)
-
-        # if current state is the goal
-        if goal_test(inode.state, target):
-            # break the while loop
-            print(f"Goal State Found: {inode.state}")
-            # begin reporting the answer
-            break
-        # if frontier set is zero
-        if len(frontier_set.frontier) == 0:
-            # then there is no connection, return None
-            # as per CS50 requirements
-            return None
-        # expand the node by checking all people connected to current person
-        print(f"Expanding from {inode.state}")
-
-        # looping through all movie connections
-        for item in neighbors_for_person(person_id=inode.state):
-            # if person id is not the current state
-            if item[1] != inode.state:
-                # add
-                inode.action.add(item[1])
-        print(f"Found these nodes: {inode.action}")
-        
+        # create the current iteration's node (state, parent, action)
+        node = Node(state, parent=None, action=None)
+            # action adds is a dummy action set
         # add current state to explored set
-        explored_set.add(inode.state)
-        print(f"Explored set is now: {explored_set}")
+        # if the current state is the goal
+            # begin collecting the path to goal
+        # if the frontier is empty
+            # then no connection, return None (as per CS50 specs)
+        # loop through possible people connections
+            # if the connection is not the state and not in the explored set
+                # add to actions
+                # add to frontier
+            # else, connection is the state itself or in explored set
+                # do nothing
 
-        # use a queue system in the frontier for a breadth-first search algorithm
-        frontier_set.add()
-
-        # add the initial state to the explored set
-
-    # add new people to frontier in a queue system
-
-    # move to a person
-
-    # if current person is target person
-
-        # run through previous path by going to each parent until back to source
-    
-    # elif nothing in frontier
-        # return None as the answer (as per CS50 specifications)
-    
-    # else
-        # continue the algorithm
-    
-    pass
 
 
 def person_id_for_name(name):

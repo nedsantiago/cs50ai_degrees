@@ -83,6 +83,10 @@ def main():
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
+def goal_test(node, target):
+    """This function checks if the current node is the target node"""
+
+    return True # node.state == target
 
 def shortest_path(source, target):
     """
@@ -98,21 +102,50 @@ def shortest_path(source, target):
     # find neighbors as the possible actions of node
     neighbors = neighbors_for_person(person_id=source)
     inode = Node(state=source, parent=None, action=neighbors)
+    print(inode.action)
 
-    # loop forever until an error pops up or goal state is found
-    not_goal = True
-    not_frontier_empty = True
-    while(not_goal and not_frontier_empty):
+    # loop forever until frontier is empty or goal state is found
+
+    # intitializing the Queue Frontier for a breadth-first implementation
+    frontier_set = QueueFrontier()
+
+    # initialize the explored set
+    explored_set = set()
+
+    # initialize the actions
+    inode.action = set()
+    while True:
+        # add the current state to the explored set
+        explored_set.add(inode.state)
+
+        # if current state is the goal
+        if goal_test(inode.state, target):
+            # break the while loop
+            print(f"Goal State Found: {inode.state}")
+            # begin reporting the answer
+            break
+        # if frontier set is zero
+        if len(frontier_set.frontier) == 0:
+            # then there is no connection, return None
+            # as per CS50 requirements
+            return None
         # expand the node by checking all people connected to current person
         print(f"Expanding from {inode.state}")
-        actions = {}
-        print(f"Found these nodes: {actions}")
-        # looping through set
+
+        # looping through all movie connections
         for item in neighbors_for_person(person_id=inode.state):
-            print(f"loop through actions: {item[1]}")
-        not_frontier_empty = False
+            # if person id is not the current state
+            if item[1] != inode.state:
+                # add
+                inode.action.add(item[1])
+        print(f"Found these nodes: {inode.action}")
+        
+        # add current state to explored set
+        explored_set.add(inode.state)
+        print(f"Explored set is now: {explored_set}")
 
         # use a queue system in the frontier for a breadth-first search algorithm
+        frontier_set.add()
 
         # add the initial state to the explored set
 

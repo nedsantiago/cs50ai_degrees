@@ -88,6 +88,24 @@ def goal_test(node, target):
 
     return node.state == target
 
+def print_result(node):
+    # if node parent is None
+    print(f"node.parent: {node.parent}")
+    if node.parent == None:
+        # break
+        person_name = people[node.state]["name"]
+        # parent_name = people[node.parent]["name"]
+        # movie_name = movies[node.action[0]]
+        print(f"Ending path print result with: \nsource:{person_name}")
+        return True
+    # else
+    else:
+        # print type of parent
+        print(node.action)
+        # go to node
+        print_result(node.parent)
+        return False
+
 def shortest_path(source, target):
     """
     Returns the shortest list of (movie_id, person_id) pairs
@@ -97,6 +115,7 @@ def shortest_path(source, target):
 
     Breadth-First will be implemented first for simplicity
     """
+
     # inititalize node
     node = Node(state=source, parent=None, action=None)
     # initialize a queue frontier for a breadth-first search (BFS)
@@ -117,7 +136,7 @@ def shortest_path(source, target):
         if goal_test(node=node, target=target):
             # begin collecting the path to goal
             print(f"Found the goal, beginning path lister")
-            raise NotImplementedError
+            print_result(node)
         else: # it is not the goal and need to look for possibilities
             # Expand Frontier: loop through possible nodes
             for person_id in neighbors_for_person(node.state):
@@ -126,9 +145,9 @@ def shortest_path(source, target):
                     # add connection (node) to frontier
                     frontier_queue.add(Node(
                         state=person_id[1], 
-                        parent=node.state, 
+                        parent=node,
                         action=person_id))
-            # add node to explroed set
+            # add node to explored set
             explored_set.add(node)
 
 

@@ -97,14 +97,13 @@ def print_result(node):
         # parent_name = people[node.parent]["name"]
         # movie_name = movies[node.action[0]]
         print(f"Ending path print result with: \nsource:{person_name}")
-        return True
-    # else
+        return
+    # else (not the source)
     else:
-        # print type of parent
+        # print action
         print(node.action)
         # go to node
         print_result(node.parent)
-        return False
 
 def shortest_path(source, target):
     """

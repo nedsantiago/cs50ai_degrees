@@ -20,6 +20,7 @@ people = {}
 # Maps movie_ids to a dictionary of: title, year, stars (a set of person_ids)
 movies = {}
 
+
 def load_data(directory):
     """
     Load data from CSV files into memory.
@@ -58,6 +59,7 @@ def load_data(directory):
             except KeyError:
                 pass
 
+
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
@@ -89,10 +91,20 @@ def main():
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
+
 def goal_test(node, target):
     """This function checks if the current node is the target node"""
 
     return node.state == target
+
+
+def heuristic(name: str):
+    """This function serves as the heuristic function of this algorithm. Its heuristic
+    compares the number of connections each person has and will prefer better connected
+    people"""
+
+    pass
+
 
 def list_path(node):
     """This function takes the current node and moves to the parent
@@ -104,7 +116,7 @@ def list_path(node):
     # initialize the list of paths with an empty path
     ls_path = []
     # while parent is not None (node is not source)
-    while(node.action != None):
+    while (node.action != None):
         # append the node's action to the list of path
         # print(f"current node: {node.state}")
         # print(f"current node action: {node.action}")
@@ -118,6 +130,7 @@ def list_path(node):
     ls_path.reverse()
     # return the list of actions
     return ls_path
+
 
 def shortest_path(source, target):
     """
@@ -150,7 +163,7 @@ def shortest_path(source, target):
             # begin collecting the path to goal
             print(f"Found the goal, beginning path lister")
             return list_path(node)
-        else: # it is not the goal and need to look for possibilities
+        else:  # it is not the goal and need to look for possibilities
             # Expand Frontier: loop through possible nodes
             for person_id in neighbors_for_person(node.state):
                 # if the connection is not a refernce to self
@@ -162,6 +175,7 @@ def shortest_path(source, target):
                         action=person_id))
             # add node to explored set
             explored_set.add(node)
+
 
 def person_id_for_name(name):
     """
@@ -187,6 +201,7 @@ def person_id_for_name(name):
         return None
     else:
         return person_ids[0]
+
 
 def neighbors_for_person(person_id):
     """

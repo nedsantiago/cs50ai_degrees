@@ -5,6 +5,12 @@
 # * Add a heuristic to improve the speed of the algorithm
 # * Update algorithm to an A* algorithm by considering the distance of each
 #   node from the source
+# TODO:
+# * implement the heuristic function that is based on number of connections
+#   per person
+# * apply the heuristic function into the algorithm
+# * implement a cost function based on distance from source
+# * apply the cost function to the algorithm
 
 import csv
 import sys
@@ -98,12 +104,13 @@ def goal_test(node, target):
     return node.state == target
 
 
-def heuristic(name: str):
+def heuristic(node: Node):
     """This function serves as the heuristic function of this algorithm. Its heuristic
     compares the number of connections each person has and will prefer better connected
     people"""
 
-    pass
+    # higher number of connections is better
+    return len(neighbors_for_person(node.state))
 
 
 def g(node):
@@ -125,13 +132,13 @@ def list_path(node):
     # while parent is not None (node is not source)
     while (node.action != None):
         # append the node's action to the list of path
-        # print(f"current node: {node.state}")
-        # print(f"current node action: {node.action}")
-        # print(f"Current ls_path: {ls_path}")
+        print(f"current node: {node.state}")
+        print(f"current node action: {node.action}")
+        print(f"Current ls_path: {ls_path}")
         ls_path.append(node.action)
         # update the current node to the parent's node
         node = node.parent
-        # print(f"Changed the node, now ls_path: {ls_path}")
+        print(f"Changed the node, now ls_path: {ls_path}")
     # when the source is found
     # reverse the list
     ls_path.reverse()

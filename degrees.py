@@ -90,8 +90,9 @@ def goal_test(node, target):
 
 def list_path(node):
     """This function takes the current node and moves to the parent
-    node until it is None (which would be the source). It returns a list
-    of tuples that show the actions taken to get to get from source to target"""
+    node until the action is None (which would mean the current node is the source). 
+    It returns a list of tuples that show the actions taken to get to get from 
+    source to target"""
     
     print(f"node.parent: {node.parent}")
     # initialize the list of paths with an empty path
@@ -99,13 +100,13 @@ def list_path(node):
     # while parent is not None (node is not source)
     while(node.action != None):
         # append the node's action to the list of path
-        print(f"current node: {node.state}")
-        print(f"current node action: {node.action}")
-        print(f"Current ls_path: {ls_path}")
+        # print(f"current node: {node.state}")
+        # print(f"current node action: {node.action}")
+        # print(f"Current ls_path: {ls_path}")
         ls_path.append(node.action)
         # update the current node to the parent's node
         node = node.parent
-        print(f"Changed the node, now ls_path: {ls_path}")
+        # print(f"Changed the node, now ls_path: {ls_path}")
     # when the source is found
     # reverse the list
     ls_path.reverse()

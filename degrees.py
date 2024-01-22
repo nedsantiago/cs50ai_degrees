@@ -1,3 +1,11 @@
+# Project: CS50AI - Degrees
+# Description:
+# This project finds the degrees of separation between any two celebrities.
+# Updates:
+# * Add a heuristic to improve the speed of the algorithm
+# * Update algorithm to an A* algorithm by considering the distance of each
+#   node from the source
+
 import csv
 import sys
 
@@ -11,7 +19,6 @@ people = {}
 
 # Maps movie_ids to a dictionary of: title, year, stars (a set of person_ids)
 movies = {}
-
 
 def load_data(directory):
     """
@@ -50,7 +57,6 @@ def load_data(directory):
                 movies[row["movie_id"]]["stars"].add(row["person_id"])
             except KeyError:
                 pass
-
 
 def main():
     if len(sys.argv) > 2:
@@ -157,7 +163,6 @@ def shortest_path(source, target):
             # add node to explored set
             explored_set.add(node)
 
-
 def person_id_for_name(name):
     """
     Returns the IMDB id for a person's name,
@@ -182,7 +187,6 @@ def person_id_for_name(name):
         return None
     else:
         return person_ids[0]
-
 
 def neighbors_for_person(person_id):
     """

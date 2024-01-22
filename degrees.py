@@ -106,6 +106,13 @@ def heuristic(name: str):
     pass
 
 
+def g(node):
+    """This function calculates the cost fucnction. This goes hand-in-hand with the
+    heuristic function as part of the A* algorithm."""
+
+    pass
+
+
 def list_path(node):
     """This function takes the current node and moves to the parent
     node until the action is None (which would mean the current node is the source). 

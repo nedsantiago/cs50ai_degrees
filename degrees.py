@@ -88,22 +88,26 @@ def goal_test(node, target):
 
     return node.state == target
 
-def print_result(node):
-    # if node parent is None
+def list_path(node):
+    """This function takes the current node and moves to the parent
+    node until it is None (which would be the source). It returns a list
+    of tuples that show the actions taken to get to get from source to target"""
+    
     print(f"node.parent: {node.parent}")
-    if node.parent == None:
-        # break
-        person_name = people[node.state]["name"]
-        # parent_name = people[node.parent]["name"]
-        # movie_name = movies[node.action[0]]
-        print(f"Ending path print result with: \nsource:{person_name}")
-        return
-    # else (not the source)
-    else:
-        # print action
-        print(node.action)
-        # go to node
-        print_result(node.parent)
+    # initialize the list of paths with an empty path
+    ls_path = []
+    # while parent is not None (node is not source)
+    while(node.action != None):
+        # append the node's action to the list of path
+        print(f"current node: {node.state}")
+        print(f"current node action: {node.action}")
+        print(f"Current ls_path: {ls_path}")
+        ls_path.append(node.action)
+        # update the current node to the parent's node
+        node = node.parent
+        print(f"Changed the node, now ls_path: {ls_path}")
+    # when the source is found return the list of actions
+    return ls_path
 
 def shortest_path(source, target):
     """
@@ -135,7 +139,7 @@ def shortest_path(source, target):
         if goal_test(node=node, target=target):
             # begin collecting the path to goal
             print(f"Found the goal, beginning path lister")
-            print_result(node)
+            return list_path(node)
         else: # it is not the goal and need to look for possibilities
             # Expand Frontier: loop through possible nodes
             for person_id in neighbors_for_person(node.state):

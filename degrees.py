@@ -106,7 +106,10 @@ def list_path(node):
         # update the current node to the parent's node
         node = node.parent
         print(f"Changed the node, now ls_path: {ls_path}")
-    # when the source is found return the list of actions
+    # when the source is found
+    # reverse the list
+    ls_path.reverse()
+    # return the list of actions
     return ls_path
 
 def shortest_path(source, target):
